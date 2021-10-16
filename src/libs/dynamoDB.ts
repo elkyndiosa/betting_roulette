@@ -1,4 +1,5 @@
 import { GetItemInput, PutItemInput, GetItemOutput, PutItemOutput } from '@aws-sdk/client-dynamodb';
+import mongoid from 'mongoid-js';
 import AWS from './aws-sdk';
 
 const { IS_OFFLINE, JEST_WORKER_ID } = process.env;
@@ -10,13 +11,14 @@ if (IS_OFFLINE) {
   };
 }
 
-if (JEST_WORKER_ID) {
+if (JEST_WORKER_ID && JEST_WORKER_ID === 'TRUE') {
   options = {
     region: 'local-env',
     endpoint: 'http://localhost:8000',
     sslEnabled: false,
   };
 }
+
 const documentClient = new AWS.DynamoDB.DocumentClient(options);
 
 const Dynamo = {
@@ -36,7 +38,7 @@ const Dynamo = {
   },
   async write(data: any, TableName: string) {
     if (!data.id) {
-      throw Error('no id on the data');
+      data.id = mongoid();
     }
     const params: PutItemInput = {
       TableName,

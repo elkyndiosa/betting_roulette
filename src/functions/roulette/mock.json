@@ -1,0 +1,11 @@
+{
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+        "id": "616b1b7da5c3d43465000001",
+        "name": "Roulette of test",
+        "description": "First roulette",
+        "opening": false
+    }
+  }

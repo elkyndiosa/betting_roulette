@@ -7,7 +7,7 @@ export const eventGenerator = ({
   stageVariables = null,
 }) => {
   const request = {
-    body: body ? JSON.stringify(body) : null,
+    body: body || null,
     headers: {},
     multiValueHeaders: {},
     httpMethod: method,

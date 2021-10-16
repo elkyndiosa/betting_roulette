@@ -4,7 +4,7 @@
   "description": "Serverless aws-nodejs-typescript template",
   "main": "serverless.ts",
   "scripts": {
-    "dev": "serverless offline",
+    "dev": "sls offline start",
     "deploy": "serverless deploy",
     "lint": "eslint src --ext ts,js --no-ignore",
     "lint-fix": "eslint src --ext ts,js --no-ignore --fix",

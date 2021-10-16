@@ -8,3 +8,29 @@ hello:
         request:
           schema:
             application/json: ${file(schemes/hello.json)}
+rouletteCreate:
+  handler: src/functions/roulette/roulette.create
+  iamRoleStatementsInherit: true
+  events:
+    - http:
+        path: roulette
+        method: post
+        cors: true
+        request:
+          schema:
+            application/json: ${file(schemes/rouletteCreate.json)}
+        authorizer: authorizerFunc
+rouletteUpdate:
+  handler: src/functions/roulette/roulette.update
+  iamRoleStatementsInherit: true
+  events:
+    - http:
+        path: roulette
+        method: put
+        cors: true
+        request:
+          schema:
+            application/json: ${file(schemes/rouletteUpdate.json)}
+        authorizer: authorizerFunc
+authorizerFunc:
+  handler: src/authorizer/auth.authorizerFunc

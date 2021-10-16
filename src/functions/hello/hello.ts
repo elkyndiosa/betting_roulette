@@ -8,7 +8,7 @@ import { errorResponse, Response, successResponse } from 'src/common/apiResponse
 const hello: ValidatedEventAPIGatewayProxyEvent<HelloType> = async (
   event: AWSLambda.APIGatewayEvent,
 ): Promise<Response> => {
-  const body = JSON.parse(event.body);
+  const body = typeof event.body === 'string' ? JSON.parse(event.body) : event.body;
   try {
     return successResponse({
       message: `Hello ${body.name}, welcome to the exciting Serverless world!`,

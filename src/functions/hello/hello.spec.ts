@@ -2,10 +2,6 @@ import { isApiGatewayResponse } from '@src/testUtils/validators';
 import { eventGenerator } from '../../testUtils/eventGenerator';
 import { main } from './hello';
 
-// const createPlayerScore = require('../../lambdas/endpoints/createPlayerScore');
-// const eventGenerator = require('../testUtils/eventGenerator');
-// const validators = require('../testUtils/validators');
-
 describe('Hello word response', () => {
   test('validate response type', async () => {
     const context = null;
@@ -13,7 +9,7 @@ describe('Hello word response', () => {
     const event = eventGenerator({
       body: {
         name: 'tom',
-        descripcion: 'hello word',
+        description: 'hello word',
       },
     });
     const resp = await main(event, context, callback);

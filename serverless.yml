@@ -6,11 +6,11 @@ provider:
   runtime: nodejs14.x
   region: us-east-1
   architecture: arm64
-  stage: ${env:STAGE, 'dev'}
+  stage: ${env:STAGE, 'local'}
   timeout: 60
   environment:
-    ROULETTE_TABLE: roulette-${self:provider.stage}
-    BET_TABLE: bet-${self:provider.stage}
+    ROULETTE_TABLE: ${env:ROULETTE_TABLE}
+    BET_TABLE: ${env:BET_TABLE}
   tracing:
     apiGateway: true
     lambda: true
@@ -53,8 +53,8 @@ functions: ${file(./yml/functions.yml)}
 resources:
   - ${file(./yml/resources/dynamodb.yml)}
 plugins:
-  - serverless-dynamodb-local
   - serverless-webpack
+  - serverless-dynamodb-local
   - serverless-offline
   - serverless-plugin-warmup
   - serverless-dotenv-plugin

@@ -1,7 +1,7 @@
 type HelloType = {
   id: string;
   name: string;
-  descripcion: string;
+  description: string;
   createdAt: Date;
 };
 export default HelloType;
