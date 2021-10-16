@@ -1,9 +1,9 @@
 type RouletteType = {
   id: string;
   name: string;
-  descripcion: string;
+  description: string;
   opening: boolean;
   createdByUserId: boolean;
-  createdAt: Date;
+  createdAt: string;
 };
 export default RouletteType;
