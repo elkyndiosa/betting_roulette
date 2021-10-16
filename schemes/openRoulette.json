@@ -1,0 +1,12 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "title": "The Root Schema open roulette",
+    "properties": {
+      "id": {
+        "type": "string"
+      }
+    },
+    "additionalProperties": false,
+    "required": ["id"]
+  }

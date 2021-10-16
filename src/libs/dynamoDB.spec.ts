@@ -3,14 +3,6 @@ import mongoid from 'mongoid-js';
 import Dynamo from './dynamoDB';
 
 describe('Validate DynamoDb', () => {
-  // test('successRespponse - Validate that the api respponse returns the desired object', async () => {
-  //   // const respp = await dynamoDbfrom.put({ TableName: 'roulette-local', Item: { id: '1', hello: 'world' } }).promise();
-  //   // eslint-disable-next-line no-console
-  //   // console.log(respp);
-
-  //   expect(200).toBe(200);
-  // });
-
   const validTableName = 'roulette-local';
   const timestamp = new Date().toISOString();
   const data: RouletteType = {

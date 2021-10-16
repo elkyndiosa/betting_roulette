@@ -19,7 +19,7 @@ if (JEST_WORKER_ID && JEST_WORKER_ID === 'TRUE') {
   };
 }
 
-const documentClient = new AWS.DynamoDB.DocumentClient(options);
+export const documentClient = new AWS.DynamoDB.DocumentClient(options);
 
 const Dynamo = {
   async get(id: any, TableName: string) {

@@ -9,7 +9,7 @@ hello:
           schema:
             application/json: ${file(schemes/hello.json)}
 rouletteCreate:
-  handler: src/functions/roulette/roulette.create
+  handler: src/functions/roulette/rouletteCreate.create
   iamRoleStatementsInherit: true
   events:
     - http:
@@ -20,17 +20,17 @@ rouletteCreate:
           schema:
             application/json: ${file(schemes/rouletteCreate.json)}
         authorizer: authorizerFunc
-rouletteUpdate:
-  handler: src/functions/roulette/roulette.update
+openRoulette:
+  handler: src/functions/roulette/openRoulette.openRoulette
   iamRoleStatementsInherit: true
   events:
     - http:
-        path: roulette
-        method: put
+        path: roulette/open
+        method: post
         cors: true
         request:
           schema:
-            application/json: ${file(schemes/rouletteUpdate.json)}
+            application/json: ${file(schemes/openRoulette.json)}
         authorizer: authorizerFunc
 authorizerFunc:
   handler: src/authorizer/auth.authorizerFunc

@@ -3,7 +3,7 @@ type RouletteType = {
   name: string;
   description: string;
   opening: boolean;
-  createdByUserId: boolean;
+  createdByUserId: string;
   createdAt: string;
 };
 export default RouletteType;

@@ -11,6 +11,7 @@ const createFunction: ValidatedEventAPIGatewayProxyEvent<RouletteType> = async (
   event: AWSLambda.APIGatewayEvent,
 ): Promise<Response> => {
   const roulette: RouletteType = event.body as unknown as RouletteType;
+  roulette.createdByUserId = event.headers.Authorization;
   try {
     const newRoulette = await Dynamo.write(roulette, tableName).catch((err) => {
       console.log('error in dynamo write', err);

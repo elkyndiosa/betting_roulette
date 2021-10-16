@@ -1,6 +1,6 @@
 import { isApiGatewayResponse } from '@src/testUtils/validators';
 import { eventGenerator } from '../../testUtils/eventGenerator';
-import { create } from './roulette';
+import { create } from './rouletteCreate';
 import mock = require('./mock.json');
 
 describe('Validating entity roulette', () => {
