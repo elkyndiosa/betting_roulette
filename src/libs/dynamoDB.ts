@@ -40,6 +40,7 @@ const Dynamo = {
     if (!data.id) {
       data.id = mongoid();
     }
+    data.createdAt = new Date().toISOString();
     const params: PutItemInput = {
       TableName,
       Item: data,

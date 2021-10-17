@@ -1,0 +1,38 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "title": "The Root Schema bet",
+    "properties": {
+      "rouletteId": {
+        "type": "string"
+      },
+      "type": {
+        "type": "string",
+        "enum": ["number", "color"]
+      },
+      "number": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 36
+      },
+      "color": {
+        "type": "string",
+        "enum": ["red", "black"]
+      },
+      "amount": {
+        "type": "integer",
+        "maximum": 10000
+      }
+    },
+    "additionalProperties": false,
+    "required": ["rouletteId", "type", "amount"],
+    "if": {
+      "properties": { "type": { "const": "color" } }
+    },
+    "then": {
+      "properties": { "color": { "required": true } }
+    },
+    "else": {
+      "properties": { "number": { "required": true } }
+    }
+  }

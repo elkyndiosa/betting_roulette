@@ -1,8 +1,9 @@
-import { errorResponse, Response, successResponse } from 'src/common/apiResponses';
+import { errorResponse, erroValidationDataResponse, Response, successResponse } from 'src/common/apiResponses';
 import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/apiGateway';
 import middyfy from '@libs/lambda';
 import Dynamo from '@libs/dynamoDB';
 import BetType from '@src/structures/bet.type';
+import { rouletteIsOpen } from '@functions/roulette/utils/rouletteIsOpen';
 
 const { BET_TABLE } = process.env;
 const tableName = BET_TABLE;
@@ -13,6 +14,10 @@ const createFunction: ValidatedEventAPIGatewayProxyEvent<BetType> = async (
   const bet: BetType = event.body as unknown as BetType;
   bet.userId = event.headers.Authorization;
   try {
+    const rouletteIsOpenResp = await rouletteIsOpen({ id: bet.rouletteId });
+    console.log(rouletteIsOpenResp);
+
+    if (!rouletteIsOpenResp) return erroValidationDataResponse({ message: 'Roulette not found' });
     const newBet = await Dynamo.write(bet, tableName).catch((err) => {
       console.log('error in dynamo write', err);
       return null;

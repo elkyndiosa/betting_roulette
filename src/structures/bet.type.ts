@@ -1,6 +1,6 @@
 type BetType = {
   id: string;
-  rouletteUuid: string;
+  rouletteId: string;
   userId: string;
   type: string;
   number: string;
