@@ -27,7 +27,6 @@ const BetDynamo = {
     }
   },
   async updateOnClosing(data: BetType) {
-    console.log('data', data);
     try {
       const params = {
         TableName,

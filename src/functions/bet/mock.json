@@ -9,6 +9,11 @@
         "type": "number",
         "number": "27",
         "color": "black",
-        "amount": 1500
+        "amount": 1500,
+        "closed": true,
+        "winner": true,
+        "earnings": 7500,
+        "closeDate": "2021-10-17T07:02:51.992Z",
+        "createdAt": "2021-10-17T07:02:51.992Z"
     }
   }
