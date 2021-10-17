@@ -22,12 +22,12 @@ const openRouletteFunction: ValidatedEventAPIGatewayProxyEvent<RouletteType> = a
     if (!newRoulette) return errorResponse({ message: 'Failed to updated database' });
     return successResponse({
       message: `Roulette with id ${roulette.id} updated succesfull`,
-      succes: true,
+      success: true,
     });
   } catch (error) {
     return errorResponse({
       message: `I cannot open the roulette ${roulette.name}`,
-      succes: false,
+      success: false,
     });
   }
 };

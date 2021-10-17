@@ -1,15 +1,12 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
-    "title": "The Root Schema roulette",
+    "title": "The Root Schema close roulette",
     "properties": {
-      "name": {
-        "type": "string"
-      },
-      "description": {
+      "id": {
         "type": "string"
       }
     },
     "additionalProperties": false,
-    "required": ["name"]
+    "required": ["id"]
   }

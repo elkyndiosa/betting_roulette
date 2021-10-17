@@ -35,6 +35,7 @@ custom:
       migrate: true
       seed: true
       convertEmptyValues: true
+      dbPath: "./.dynamodb"
     stages:
       - dev
       - local

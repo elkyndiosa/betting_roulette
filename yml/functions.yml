@@ -32,6 +32,18 @@ openRoulette:
           schema:
             application/json: ${file(schemes/openRoulette.json)}
         authorizer: authorizerFunc
+closeRoulette:
+  handler: src/functions/roulette/closeRoulette.closeRoulette
+  iamRoleStatementsInherit: true
+  events:
+    - http:
+        path: roulette/close
+        method: post
+        cors: true
+        request:
+          schema:
+            application/json: ${file(schemes/openRoulette.json)}
+        authorizer: authorizerFunc
 betCreate:
   handler: src/functions/bet/betCreate.create
   iamRoleStatementsInherit: true

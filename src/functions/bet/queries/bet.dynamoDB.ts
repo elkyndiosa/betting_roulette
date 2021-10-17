@@ -7,13 +7,22 @@ const TableName = ROULETTE_TABLE;
 const BetDynamo = {
   async betsByRouletteId(data) {
     const { rouletteId } = data;
+    console.log('rouletteId 3', rouletteId);
+    console.log('data 3 ', data);
+
     try {
       const params = {
         TableName,
-        KeyConditionExpression: 'rouletteId = :rouletteId',
+        IndexName: 'rouletteIdIndex',
+        KeyConditionExpression: '#rouletteId = :rouletteId',
+        ExpressionAttributeNames: {
+          '#rouletteId': 'rouletteId',
+        },
         ExpressionAttributeValues: {
           ':rouletteId': rouletteId,
         },
+        ProjectionExpression: 'rouletteId',
+        ScanIndexForward: false,
       };
       const res: QueryOutput = await documentClient.query(params).promise();
       if (!res) {

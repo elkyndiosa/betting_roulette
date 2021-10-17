@@ -17,7 +17,19 @@ Resources:
       AttributeDefinitions:
         - AttributeName: id
           AttributeType: 'S'
+        - AttributeName: rouletteId
+          AttributeType: 'S'
       KeySchema:
         - AttributeName: 'id'
           KeyType: 'HASH'
+      GlobalSecondaryIndexes:
+        - IndexName: rouletteIdIndex
+          KeySchema:
+            - AttributeName: rouletteId
+              KeyType: HASH
+          Projection:
+            ProjectionType: 'ALL'
+          ProvisionedThroughput:
+            ReadCapacityUnits: 5
+            WriteCapacityUnits: 5
       BillingMode: PAY_PER_REQUEST

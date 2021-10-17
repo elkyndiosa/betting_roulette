@@ -14,6 +14,6 @@ describe('Validate open roulette', () => {
     expect(resp).toBeDefined();
     expect(isApiGatewayResponse(resp)).toBe(true);
     const body = JSON.parse(resp.body);
-    expect(body).toEqual({ message: `Roulette with id ${mock.body.id} updated succesfull`, succes: true });
+    expect(body).toEqual({ message: `Roulette with id ${mock.body.id} updated succesfull`, success: true });
   });
 });

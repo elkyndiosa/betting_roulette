@@ -1,6 +1,6 @@
 // import RouletteType from '@src/structures/roulette.type';
 // import mongoid from 'mongoid-js';
-// import RouleteDynamo from './bet.dynamoDB';
+import BetDynamo from './bet.dynamoDB';
 
 describe('Validate RouleteDynamoDb', () => {
   // const validTableName = 'roulette-local';
@@ -13,9 +13,9 @@ describe('Validate RouleteDynamoDb', () => {
   //   createdByUserId: mongoid(),
   //   createdAt: timestamp,
   // };
-  // test('RouleteDynamo is an object', () => {
-  //   expect(typeof RouleteDynamo).toBe('object');
-  // });
+  test('RouleteDynamo is an object', () => {
+    expect(typeof BetDynamo).toBe('object');
+  });
   // test('dynamo has get and write', () => {
   //   expect(typeof RouleteDynamo.updateOpening).toBe('function');
   // });
