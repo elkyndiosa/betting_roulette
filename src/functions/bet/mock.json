@@ -1,0 +1,14 @@
+{
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+        "id": "b616b1b7da5c3d43465000001",
+        "rouletteUuid": "r616b1b7da5c3d43465000001",
+        "userId": "u616b1b7da5c3d43465000001",
+        "type": "number",
+        "number": "27",
+        "color": "black",
+        "amount": 1500
+    }
+  }

@@ -16,5 +16,21 @@ module.exports = {
       ],
       BillingMode: 'PAY_PER_REQUEST',
     },
+    {
+      TableName: 'bet-local',
+      AttributeDefinitions: [
+        {
+          AttributeName: 'id',
+          AttributeType: 'S',
+        },
+      ],
+      KeySchema: [
+        {
+          AttributeName: 'id',
+          KeyType: 'HASH',
+        },
+      ],
+      BillingMode: 'PAY_PER_REQUEST',
+    },
   ],
 };
