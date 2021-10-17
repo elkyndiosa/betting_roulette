@@ -15,8 +15,6 @@ const createFunction: ValidatedEventAPIGatewayProxyEvent<BetType> = async (
   bet.userId = event.headers.Authorization;
   try {
     const rouletteIsOpenResp = await rouletteIsOpen({ id: bet.rouletteId });
-    console.log(rouletteIsOpenResp);
-
     if (!rouletteIsOpenResp) return erroValidationDataResponse({ message: 'Roulette not found' });
     const newBet = await Dynamo.write(bet, tableName).catch((err) => {
       console.log('error in dynamo write', err);
