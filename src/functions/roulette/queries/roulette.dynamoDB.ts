@@ -1,5 +1,5 @@
 import { UpdateItemOutput } from '@aws-sdk/client-dynamodb';
-import { documentClient } from '../dynamoDB';
+import { documentClient } from '../../../libs/dynamoDB';
 
 const RouletteDynamo = {
   async updateOpening(data: any, TableName: string) {

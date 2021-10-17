@@ -2,7 +2,7 @@ import { errorResponse, erroValidationDataResponse, Response, successResponse } 
 import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/apiGateway';
 import RouletteType from '@src/structures/roulette.type';
 import middyfy from '@libs/lambda';
-import rouletteDynamo from '@libs/queries/roulette.dynamoDB';
+import rouletteDynamo from '@functions/roulette/queries/roulette.dynamoDB';
 import { existInDatabase } from '@src/common/existInDatabase';
 // import BetType from '@src/structures/bet.type';
 import { rouletteIsOpen } from '@functions/roulette/utils/rouletteIsOpen';
