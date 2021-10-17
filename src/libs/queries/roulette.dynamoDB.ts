@@ -15,7 +15,7 @@ const RouletteDynamo = {
         },
         ReturnValues: 'ALL_NEW',
       };
-      const res: UpdateItemOutput = documentClient.update(params).promise();
+      const res: UpdateItemOutput = await documentClient.update(params).promise();
       if (!res) {
         throw Error(`There was an error updating id of ${data.id} in table ${TableName}`);
       }
