@@ -4,7 +4,6 @@ import RouletteType from '@src/structures/roulette.type';
 import middyfy from '@libs/lambda';
 import rouletteDynamo from '@functions/roulette/queries/roulette.dynamoDB';
 import { existInDatabase } from '@src/common/existInDatabase';
-// import BetType from '@src/structures/bet.type';
 import { rouletteIsOpen } from '@functions/roulette/utils/rouletteIsOpen';
 import { drawRoulette } from '@functions/roulette/utils/drawRoulette';
 import BetType from '@src/structures/bet.type';
