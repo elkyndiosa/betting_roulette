@@ -1,30 +1,22 @@
-import { QueryOutput } from '@aws-sdk/client-dynamodb';
+import { ScanOutput, UpdateItemOutput } from '@aws-sdk/client-dynamodb';
 import { documentClient } from '@libs/dynamoDB';
+import BetType from '@src/structures/bet.type';
 
-const { ROULETTE_TABLE } = process.env;
-const TableName = ROULETTE_TABLE;
+const { BET_TABLE } = process.env;
+const TableName = BET_TABLE;
 
 const BetDynamo = {
   async betsByRouletteId(data) {
     const { rouletteId } = data;
-    console.log('rouletteId 3', rouletteId);
-    console.log('data 3 ', data);
-
     try {
       const params = {
         TableName,
-        IndexName: 'rouletteIdIndex',
-        KeyConditionExpression: '#rouletteId = :rouletteId',
-        ExpressionAttributeNames: {
-          '#rouletteId': 'rouletteId',
-        },
+        FilterExpression: 'rouletteId = :rouletteId',
         ExpressionAttributeValues: {
           ':rouletteId': rouletteId,
         },
-        ProjectionExpression: 'rouletteId',
-        ScanIndexForward: false,
       };
-      const res: QueryOutput = await documentClient.query(params).promise();
+      const res: ScanOutput = await documentClient.scan(params).promise();
       if (!res) {
         throw Error(`There was an error find bets with roulette id ${rouletteId} in table ${TableName}`);
       }
@@ -32,6 +24,39 @@ const BetDynamo = {
     } catch (error) {
       console.log('error when find bets with roulette', error);
       throw Error(`There was an error find bets with roulette id ${rouletteId} in table ${TableName}`);
+    }
+  },
+  async updateOnClosing(data: BetType) {
+    console.log('data', data);
+    try {
+      const params = {
+        TableName,
+        Key: {
+          id: data.id,
+        },
+        UpdateExpression: 'SET #closed = :closed, #winner = :winner, #earnings = :earnings, #closeDate = :closeDate',
+        ExpressionAttributeNames: {
+          '#closed': 'closed',
+          '#winner': 'winner',
+          '#earnings': 'earnings',
+          '#closeDate': 'closeDate',
+        },
+        ExpressionAttributeValues: {
+          ':closed': data.closed,
+          ':winner': data.winner,
+          ':earnings': data.earnings,
+          ':closeDate': data.closeDate,
+        },
+        ReturnValues: 'ALL_NEW',
+      };
+      const res: UpdateItemOutput = await documentClient.update(params).promise();
+      if (!res) {
+        throw Error(`There was an error updating id of ${data.id} in table ${TableName}`);
+      }
+      return data;
+    } catch (error) {
+      console.log('error when updating bet', error);
+      throw Error(`There was an error updating id of ${data.id} in table ${TableName}`);
     }
   },
 };

@@ -7,5 +7,9 @@ type BetType = {
   color: string;
   amount: number;
   createdAt: string;
+  closed: boolean;
+  winner: boolean;
+  earnings: number;
+  closeDate: string;
 };
 export default BetType;

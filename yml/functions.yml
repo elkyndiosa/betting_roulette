@@ -32,18 +32,6 @@ openRoulette:
           schema:
             application/json: ${file(schemes/openRoulette.json)}
         authorizer: authorizerFunc
-closeRoulette:
-  handler: src/functions/roulette/closeRoulette.closeRoulette
-  iamRoleStatementsInherit: true
-  events:
-    - http:
-        path: roulette/close
-        method: post
-        cors: true
-        request:
-          schema:
-            application/json: ${file(schemes/openRoulette.json)}
-        authorizer: authorizerFunc
 betCreate:
   handler: src/functions/bet/betCreate.create
   iamRoleStatementsInherit: true
@@ -55,6 +43,18 @@ betCreate:
         request:
           schema:
             application/json: ${file(schemes/betCreate.json)}
+        authorizer: authorizerFunc
+closeBet:
+  handler: src/functions/bet/closeBets.closeBets
+  iamRoleStatementsInherit: true
+  events:
+    - http:
+        path: roulette/close
+        method: post
+        cors: true
+        request:
+          schema:
+            application/json: ${file(schemes/closeBets.json)}
         authorizer: authorizerFunc
 authorizerFunc:
   handler: src/authorizer/auth.authorizerFunc
