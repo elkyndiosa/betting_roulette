@@ -30,11 +30,9 @@ const closeBetsFunction: ValidatedEventAPIGatewayProxyEvent<RouletteType> = asyn
         return null;
       });
     if (!rouletteResponse) return errorResponse({ message: 'Failed to updated database' });
-
     const bets: BetType[] = await betsByRouletteId({ rouletteId: bet.rouletteId });
     const winner = await drawRoulette({});
     const betsWinner = await getBetsWinner({ ...winner, bets });
-
     return successResponse({
       message: `Bets with roulette id ${bet.rouletteId} closed succesfull`,
       success: true,

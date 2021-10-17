@@ -1,4 +1,11 @@
-import { GetItemInput, PutItemInput, GetItemOutput, PutItemOutput } from '@aws-sdk/client-dynamodb';
+import {
+  GetItemInput,
+  PutItemInput,
+  GetItemOutput,
+  PutItemOutput,
+  QueryInput,
+  QueryOutput,
+} from '@aws-sdk/client-dynamodb';
 import mongoid from 'mongoid-js';
 import AWS from './aws-sdk';
 
@@ -50,6 +57,16 @@ const Dynamo = {
       throw Error(`There was an error inserting id of ${data.id} in table ${TableName}`);
     }
     return data;
+  },
+  async getAll(TableName: string) {
+    const params: QueryInput = {
+      TableName,
+    };
+    const res: QueryOutput = await documentClient.scan(params).promise();
+    if (!res) {
+      throw Error(`There was an error in obtaining the items in the table. ${TableName}`);
+    }
+    return res;
   },
 };
 export default Dynamo;

@@ -56,5 +56,13 @@ closeBet:
           schema:
             application/json: ${file(schemes/closeBets.json)}
         authorizer: authorizerFunc
+rouletteList:
+  handler: src/functions/roulette/rouletteList.rouletteList
+  iamRoleStatementsInherit: true
+  events:
+    - http:
+        path: roulette
+        method: get
+        cors: true
 authorizerFunc:
   handler: src/authorizer/auth.authorizerFunc

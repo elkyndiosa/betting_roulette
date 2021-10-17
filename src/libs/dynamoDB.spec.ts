@@ -29,7 +29,6 @@ describe('Validate DynamoDb', () => {
       console.log('error in dynamo write test', error);
     }
   });
-
   test('dynamo get works', async () => {
     expect.assertions(1);
     try {

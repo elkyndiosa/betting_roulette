@@ -5,8 +5,6 @@ import BetDynamo from './bet.dynamoDB';
 import mock = require('../mock.json');
 
 describe('Validate RouleteDynamoDb', () => {
-  // const validTableName = 'roulette-local';
-  // const timestamp = new Date().toISOString();
   const data: BetType = mock.body;
   test('RouleteDynamo is an object', () => {
     expect(typeof BetDynamo).toBe('object');
@@ -15,7 +13,6 @@ describe('Validate RouleteDynamoDb', () => {
     expect(typeof BetDynamo.betsByRouletteId).toBe('function');
     expect(typeof BetDynamo.updateOnClosing).toBe('function');
   });
-
   test('Bets - get by roulette id', async () => {
     expect.assertions(1);
     try {

@@ -17,7 +17,6 @@ const createFunction: ValidatedEventAPIGatewayProxyEvent<RouletteType> = async (
       console.log('error in dynamo write', err);
       return null;
     });
-
     if (!newRoulette) {
       return errorResponse({ message: 'Failed to write user by ID' });
     }
@@ -31,5 +30,4 @@ const createFunction: ValidatedEventAPIGatewayProxyEvent<RouletteType> = async (
     });
   }
 };
-
 export const create = middyfy(createFunction);

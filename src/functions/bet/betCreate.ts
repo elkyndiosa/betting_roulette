@@ -20,7 +20,6 @@ const createFunction: ValidatedEventAPIGatewayProxyEvent<BetType> = async (
       console.log('error in dynamo write', err);
       return null;
     });
-
     if (!newBet) {
       return errorResponse({ message: 'Failed to write bet by ID' });
     }

@@ -9,8 +9,6 @@ describe('Validating entity bet', () => {
     const callback = null;
     const event = eventGenerator(mock);
     const resp = await create(event, context, callback);
-    console.log('resp', resp);
-
     expect(resp.statusCode).toBe(200);
     expect(resp).toBeDefined();
     expect(isApiGatewayResponse(resp)).toBe(true);
