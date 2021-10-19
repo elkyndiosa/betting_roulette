@@ -40,11 +40,11 @@ To test locally, run the following command:
 
 ### Third-party libraries
 
-- json-schema-to-ts](https://github.com/ThomasAribart/json-schema-to-ts) - uses the JSON-Schema definitions used by API Gateway for HTTP request validation to statically generate TypeScript types in your lambda handler codebase.
+- j[son-schema-to-ts](https://github.com/ThomasAribart/json-schema-to-ts) - uses the JSON-Schema definitions used by API Gateway for HTTP request validation to statically generate TypeScript types in your lambda handler codebase.
 - [middy](https://github.com/middyjs/middy) - middleware engine for Node.Js lambda. This template uses [http-json-body-parser](https://github.com/middyjs/middy/tree/master/packages/http-json-body-parser) to convert the `event.body` property of the Gateway API, originally passed as a chained JSON, to its corresponding parsed object
-- @serverless/typescript](https://github.com/serverless/typescript) - provides updated TypeScript definitions for your `serverless.ts` service file.
-- aws-xray-sdk](https://www.npmjs.com/package/aws-xray-sdk) - The AWS X-Ray SDK automatically records information for incoming and outgoing requests and responses (via middleware), as well as local data such as function calls, time, variables (via metadata and annotations), even EC2 instance data (via plugins).
-- mongoid-js](https://www.npmjs.com/package/aws-xray-sdk) - Generates unique id strings. The ids are constructed like MongoDB document ids, built out of a timestamp, system id, process id and sequence number. Similar to BSON.ObjectID(), but at 12 million ids / sec, 35 x faster. Example for get data for id generated:
+- [@serverless/typescript](https://github.com/serverless/typescript) - provides updated TypeScript definitions for your `serverless.ts` service file.
+- [aws-xray-sdk](https://www.npmjs.com/package/aws-xray-sdk) - The AWS X-Ray SDK automatically records information for incoming and outgoing requests and responses (via middleware), as well as local data such as function calls, time, variables (via metadata and annotations), even EC2 instance data (via plugins).
+- [mongoid-js](https://www.npmjs.com/package/aws-xray-sdk) - Generates unique id strings. The ids are constructed like MongoDB document ids, built out of a timestamp, system id, process id and sequence number. Similar to BSON.ObjectID(), but at 12 million ids / sec, 35 x faster. Example for get data for id generated:
 ```
 var parts = MongoId.parse("543f376340e2816497000013");
 // => { timestamp: 1413429091, // 0x543f3763
@@ -53,15 +53,11 @@ var parts = MongoId.parse("543f376340e2816497000013");
 // sequence: 19 } // 0x000013
 ```
 - [@shelf/jest-dynamodb](https://github.com/shelfio/jest-dynamodb) - Used to map dynamoDB data when doing unit tests without needing to connect to dynamo locally.
-- eslint](https://github.com/eslint/eslint) - ESLint is a tool for identifying and reporting on patterns found in ECMAScript/JavaScript code. In many ways, it is similar to JSLint and JSHint with a few exceptions:
+- [eslint](https://github.com/eslint/eslint) - ESLint is a tool for identifying and reporting on patterns found in ECMAScript/JavaScript code. In many ways, it is similar to JSLint and JSHint with a few exceptions:
 -ESLint uses Espree for JavaScript parsing.
 -ESLint uses an AST to evaluate patterns in code.
 -ESLint is completely pluggable, every single rule is a plugin and you can add more at runtime.
 - prettier](https://github.com/prettier/prettier) - Prettier is an opinionated code formatter. It enforces a consistent style by parsing your code and re-printing it with its own rules that take the maximum line length into account, wrapping code when necessary.
-- husky](https://www.npmjs.com/package/husky) - Package used to run certain commands before doing a git commit, in this project we use them to run `npm test` and `npm run pretest` for unit tests and validate the format with eslint and prettier.
-- serverless-iam-roles-per-function](https://www.npmjs.com/package/serverless-iam-roles-per-function) - A Serverless plugin to easily define IAM roles per function via the use of iamRoleStatements at the function definition block.
+- [husky](https://www.npmjs.com/package/husky) - Package used to run certain commands before doing a git commit, in this project we use them to run `npm test` and `npm run pretest` for unit tests and validate the format with eslint and prettier.
+- [serverless-iam-roles-per-function](https://www.npmjs.com/package/serverless-iam-roles-per-function) - A Serverless plugin to easily define IAM roles per function via the use of iamRoleStatements at the function definition block.
 - [serverless-plugin-warmup](https://github.com/juanjoDiaz/serverless-plugin-warmup) - WarmUp resuelve los arranques en frío creando una lambda programada (el calentador) que invoca todas las lambdas del servicio seleccionado en un intervalo de tiempo configurado (por defecto: 5 minutos) y forzando a sus contenedores a permanecer calientes.
-
-### Uso avanzado
-
-Se puede utilizar cualquier tsconfig.json, pero si lo haces, establece la variable de entorno `TS_NODE_CONFIG` para construir la aplicación, por ejemplo `TS_NODE_CONFIG=./tsconfig.app.json npx serverless webpack`.
