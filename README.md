@@ -8,88 +8,60 @@ For detailed instructions, please refer to the [documentation](https://www.serve
 
 Depending on your preferred package manager, follow the instructions below to deploy your project.
 
-> **Requirements**: NodeJS `lts/fermium (v.14.15.0)`. If you're using [nvm](https://github.com/nvm-sh/nvm), run `nvm use` to ensure you're using the same Node version in local and in your lambda's runtime.
+> **Requirements**: NodeJS `lts/fermium (v.14.15.0)`. If you are using [nvm](https://github.com/nvm-sh/nvm), run `nvm use` to make sure you are using the same version of Node locally and in your lambda runtime.
 
 ### Using NPM
 
-- Run `npm i` to install the project dependencies
+- Run `npm i` to install the project dependencies.
 - Run `npx sls deploy` to deploy this stack to AWS
 
 ### Using Yarn
 
-- Run `yarn` to install the project dependencies
+- Run `yarn` to install project dependencies
 - Run `yarn sls deploy` to deploy this stack to AWS
 
-## Test your service
+## Endpoint
 
-This template contains a single lambda function triggered by an HTTP request made on the provisioned API Gateway REST API `/hello` route with `POST` method. The request body must be provided as `application/json`. The body structure is tested by API Gateway against `src/functions/hello/schema.ts` JSON-Schema definition: it must contain the `name` property.
+This template contains lambda functions triggered by HTTP requests made by the Gateway REST API. The request body must be provided as `application/json`. The body structure is checked by API Gateway with the JSON schema definition in the `/schemes` path.
 
-- requesting any other path than `/hello` with any other method than `POST` will result in API Gateway returning a `403` HTTP error code
-- sending a `POST` request to `/hello` with a payload **not** containing a string property named `name` will result in API Gateway returning a `400` HTTP error code
-- sending a `POST` request to `/hello` with a payload containing a string property named `name` will result in API Gateway returning a `200` HTTP status code with a message saluting the provided name and the detailed event processed by the lambda
+For a clearer documentation of the endpoints, the postman data is left at the following url: https://documenter.getpostman.com/view/12147069/UV5Xgwja
 
-> :warning: As is, this template, once deployed, opens a **public** endpoint within your AWS account resources. Anybody with the URL can actively execute the API Gateway endpoint and the corresponding lambda. You should protect this endpoint with the authentication method of your choice.
+- requesting any other path not defined in the documentation will cause API Gateway to return a `403` HTTP error code.
+- To send the request, set in the HEADER of the query an {"Authorization": "123456789"} which is used to validate the user authentication.
+
 
 ### Locally
 
-In order to test the hello function locally, run the following command:
+To test locally, run the following command:
 
-- `npx sls invoke local -f hello --path src/functions/hello/mock.json` if you're using NPM
-- `yarn sls invoke local -f hello --path src/functions/hello/mock.json` if you're using Yarn
 
-Check the [sls invoke local command documentation](https://www.serverless.com/framework/docs/providers/aws/cli-reference/invoke-local/) for more information.
 
-### Remotely
 
-Copy and replace your `url` - found in Serverless `deploy` command output - and `name` parameter in the following `curl` command in your terminal or in Postman to test your newly deployed application.
 
+### Third-party libraries
+
+- json-schema-to-ts](https://github.com/ThomasAribart/json-schema-to-ts) - uses the JSON-Schema definitions used by API Gateway for HTTP request validation to statically generate TypeScript types in your lambda handler codebase.
+- [middy](https://github.com/middyjs/middy) - middleware engine for Node.Js lambda. This template uses [http-json-body-parser](https://github.com/middyjs/middy/tree/master/packages/http-json-body-parser) to convert the `event.body` property of the Gateway API, originally passed as a chained JSON, to its corresponding parsed object
+- @serverless/typescript](https://github.com/serverless/typescript) - provides updated TypeScript definitions for your `serverless.ts` service file.
+- aws-xray-sdk](https://www.npmjs.com/package/aws-xray-sdk) - The AWS X-Ray SDK automatically records information for incoming and outgoing requests and responses (via middleware), as well as local data such as function calls, time, variables (via metadata and annotations), even EC2 instance data (via plugins).
+- mongoid-js](https://www.npmjs.com/package/aws-xray-sdk) - Generates unique id strings. The ids are constructed like MongoDB document ids, built out of a timestamp, system id, process id and sequence number. Similar to BSON.ObjectID(), but at 12 million ids / sec, 35 x faster. Example for get data for id generated:
 ```
-curl --location --request POST 'https://myApiEndpoint/dev/hello' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "name": "Frederic"
-}'
+var parts = MongoId.parse("543f376340e2816497000013");
+// => { timestamp: 1413429091, // 0x543f3763
+// machineid: 4252289, // 0x40e281
+// pid: 25751, // 0x6497
+// sequence: 19 } // 0x000013
 ```
+- [@shelf/jest-dynamodb](https://github.com/shelfio/jest-dynamodb) - Used to map dynamoDB data when doing unit tests without needing to connect to dynamo locally.
+- eslint](https://github.com/eslint/eslint) - ESLint is a tool for identifying and reporting on patterns found in ECMAScript/JavaScript code. In many ways, it is similar to JSLint and JSHint with a few exceptions:
+-ESLint uses Espree for JavaScript parsing.
+-ESLint uses an AST to evaluate patterns in code.
+-ESLint is completely pluggable, every single rule is a plugin and you can add more at runtime.
+- prettier](https://github.com/prettier/prettier) - Prettier is an opinionated code formatter. It enforces a consistent style by parsing your code and re-printing it with its own rules that take the maximum line length into account, wrapping code when necessary.
+- husky](https://www.npmjs.com/package/husky) - Package used to run certain commands before doing a git commit, in this project we use them to run `npm test` and `npm run pretest` for unit tests and validate the format with eslint and prettier.
+- serverless-iam-roles-per-function](https://www.npmjs.com/package/serverless-iam-roles-per-function) - A Serverless plugin to easily define IAM roles per function via the use of iamRoleStatements at the function definition block.
+- [serverless-plugin-warmup](https://github.com/juanjoDiaz/serverless-plugin-warmup) - WarmUp resuelve los arranques en frío creando una lambda programada (el calentador) que invoca todas las lambdas del servicio seleccionado en un intervalo de tiempo configurado (por defecto: 5 minutos) y forzando a sus contenedores a permanecer calientes.
 
-## Template features
+### Uso avanzado
 
-### Project structure
-
-The project code base is mainly located within the `src` folder. This folder is divided in:
-
-- `functions` - containing code base and configuration for your lambda functions
-- `libs` - containing shared code base between your lambdas
-
-```
-.
-├── src
-│   ├── functions               # Lambda configuration and source code folder
-│   │   ├── hello
-│   │   │   ├── handler.ts      # `Hello` lambda source code
-│   │   │   ├── index.ts        # `Hello` lambda Serverless configuration
-│   │   │   ├── mock.json       # `Hello` lambda input parameter, if any, for local invocation
-│   │   │   └── schema.ts       # `Hello` lambda input event JSON-Schema
-│   │   │
-│   │   └── index.ts            # Import/export of all lambda configurations
-│   │
-│   └── libs                    # Lambda shared code
-│       └── apiGateway.ts       # API Gateway specific helpers
-│       └── handlerResolver.ts  # Sharable library for resolving lambda handlers
-│       └── lambda.ts           # Lambda middleware
-│
-├── package.json
-├── serverless.ts               # Serverless service file
-├── tsconfig.json               # Typescript compiler configuration
-├── tsconfig.paths.json         # Typescript paths
-└── webpack.config.js           # Webpack configuration
-```
-
-### 3rd party libraries
-
-- [json-schema-to-ts](https://github.com/ThomasAribart/json-schema-to-ts) - uses JSON-Schema definitions used by API Gateway for HTTP request validation to statically generate TypeScript types in your lambda's handler code base
-- [middy](https://github.com/middyjs/middy) - middleware engine for Node.Js lambda. This template uses [http-json-body-parser](https://github.com/middyjs/middy/tree/master/packages/http-json-body-parser) to convert API Gateway `event.body` property, originally passed as a stringified JSON, to its corresponding parsed object
-- [@serverless/typescript](https://github.com/serverless/typescript) - provides up-to-date TypeScript definitions for your `serverless.ts` service file
-
-### Advanced usage
-
-Any tsconfig.json can be used, but if you do, set the environment variable `TS_NODE_CONFIG` for building the application, eg `TS_NODE_CONFIG=./tsconfig.app.json npx serverless webpack`
+Se puede utilizar cualquier tsconfig.json, pero si lo haces, establece la variable de entorno `TS_NODE_CONFIG` para construir la aplicación, por ejemplo `TS_NODE_CONFIG=./tsconfig.app.json npx serverless webpack`.
