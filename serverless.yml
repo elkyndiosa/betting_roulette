@@ -11,6 +11,7 @@ provider:
   environment:
     ROULETTE_TABLE: ${env:ROULETTE_TABLE}
     BET_TABLE: ${env:BET_TABLE}
+    USER_TABLE: user-${self:provider.stage}
   tracing:
     apiGateway: true
     lambda: true

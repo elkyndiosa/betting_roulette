@@ -66,3 +66,10 @@ rouletteList:
         cors: true
 authorizerFunc:
   handler: src/authorizer/auth.authorizerFunc
+createUser:
+  handler: src/functions/user/user.main
+  iamRoleStatementsInherit: true
+  events:
+    - http:
+        path: user
+        method: post
