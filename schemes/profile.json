@@ -1,0 +1,24 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "title": "The Root Schema profile",
+    "properties": {
+      "document": {
+        "type": "string"
+      },
+      "email": {
+        "type": "string"
+      },
+      "edad": {
+        "type": "integer",
+        "minimum": 18,
+        "maximum": 99
+      },
+      "status": {
+        "type": "string",
+        "enum": ["active", "inactive", "deleted"]
+      }
+    },
+    "additionalProperties": false,
+    "required": ["document", "email", "status"]
+  }

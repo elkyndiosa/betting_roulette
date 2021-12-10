@@ -73,3 +73,15 @@ createUser:
     - http:
         path: user
         method: post
+profile:
+  handler: src/functions/profile/profile.main
+  iamRoleStatementsInherit: true
+  events:
+    - http:
+        path: profile
+        method: post
+        cors: true
+        request:
+          schema:
+            application/json: ${file(schemes/profile.json)}
+        authorizer: authorizerFunc

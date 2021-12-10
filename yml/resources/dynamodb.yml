@@ -48,3 +48,18 @@ Resources:
         - AttributeName: 'city'
           KeyType: 'RANGE'
       BillingMode: PAY_PER_REQUEST
+  ProfileTable:
+    Type: 'AWS::DynamoDB::Table'
+    Properties:
+      TableName: ${self:provider.environment.PROFILE_TABLE}
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: 'S'
+        - AttributeName: document
+          AttributeType: 'S'
+      KeySchema:
+        - AttributeName: 'id'
+          KeyType: 'HASH'
+        - AttributeName: 'document'
+          KeyType: 'RANGE'
+      BillingMode: PAY_PER_REQUEST

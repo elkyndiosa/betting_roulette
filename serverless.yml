@@ -12,6 +12,7 @@ provider:
     ROULETTE_TABLE: ${env:ROULETTE_TABLE}
     BET_TABLE: ${env:BET_TABLE}
     USER_TABLE: user-${self:provider.stage}
+    PROFILE_TABLE: profile-${self:provider.stage}
   tracing:
     apiGateway: true
     lambda: true
@@ -34,11 +35,10 @@ custom:
       port: 8000
       inMemory: true
       migrate: true
-      seed: true
-      convertEmptyValues: true
-      dbPath: "./.dynamodb"
+      # seed: true
+      # convertEmptyValues: true
+      # dbPath: "./.dynamodb"
     stages:
-      - dev
       - local
   warmup:
     enabled: true
