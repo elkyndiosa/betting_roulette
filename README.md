@@ -13,6 +13,7 @@ Depending on your preferred package manager, follow the instructions below to de
 ### Using NPM
 
 - Run `npm i` to install the project dependencies.
+- Run `npm i dynamodb-onetable` to install onetable. https://github.com/sensedeep/dynamodb-onetable
 - Run `npx sls deploy` to deploy this stack to AWS
 
 ### Using Yarn
